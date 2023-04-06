@@ -16,50 +16,61 @@ SELECT SALEDATE,AMOUNT,BOXES, (AMOUNT/BOXES) AS 'AMOUNT PER BOX' FROM SALES;
 #WHERE CLAUSE
 SELECT * FROM SALES
 WHERE AMOUNT> 10000;
-------------
+
+#use where any order by clause
 SELECT * FROM SALES
 WHERE AMOUNT > 10000
 ORDER BY AMOUNT DESC;
-----------
+
+
 SELECT * FROM SALES
 WHERE GEOID= 'g1'
 ORDER BY PID, AMOUNT DESC;
---------------
+
+#use Date in qury and Year() function
 SELECT * FROM SALES
 WHERE AMOUNT>10000 AND SALEDATE >= '2022-01-01';
--------------------------------
+
 SELECT SALEDATE, AMOUNT FROM SALES
 WHERE AMOUNT>10000 AND YEAR(SALEDATE) = 2022
 ORDER BY AMOUNT DESC;
------------------------------
+
+#use less than & Greater than, Between function
 SELECT * FROM SALES
 WHERE BOXES >0 AND BOXES <=50;
-----------------------------
+
 SELECT * FROM SALES 
 WHERE BOXES BETWEEN 0 AND 50;
------------------------------
+
+#use weekday() function with where
 SELECT SALEDATE, AMOUNT, BOXES, weekday(SALEDATE) AS 'DAY OF WEEK'
 FROM SALES
 WHERE weekday(SALEDATE) = 4;
-#=============================================
+
+#start exploring Poeple table
 
 SELECT * FROM PEOPLE;
----------------
+
+#use of OR
 SELECT * FROM PEOPLE
 WHERE TEAM = 'DELISH' OR TEAM = 'jUCIES';
----------------------
+
+#Use on IN when you wish to use more than one filter
 SELECT * FROM PEOPLE
 WHERE TEAM in('DELISH','JUCIES');
-----------------
+
+#Like quries
 SELECT * FROM PEOPLE
 WHERE SALESPERSON LIKE 'B%';
---------------------
+
 SELECT * FROM PEOPLE
 WHERE SALESPERSON LIKE '%B%';
-#============================
+
+#Back to sales table with CASE branching logic
 
 SELECT * FROM SALES;
---------
+
+
 SELECT SALEDATE, AMOUNT,
 CASE
 WHEN AMOUNT<5000 THEN 'UNDER 1K'
@@ -67,7 +78,8 @@ WHEN AMOUNT<10000 THEN  'UNDER 10K'
 ELSE '10K OR MORE'
 END AS 'AMOUNT CATEGORY'
 FROM SALES;
---------------
+
+# use group by in sales table
 SELECT TEAM, COUNT(*) AS 'COUNTS' FROM PEOPLE
 GROUP BY TEAM
 
